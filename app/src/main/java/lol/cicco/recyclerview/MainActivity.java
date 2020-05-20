@@ -2,17 +2,53 @@ package lol.cicco.recyclerview;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import lol.cicco.recyclerview.adapters.ListViewAdapter;
+import lol.cicco.recyclerview.bean.ItemEntity;
+
 public class MainActivity extends AppCompatActivity {
+
+    RecyclerView recyclerView;
+
+    private List<ItemEntity> dataList = new LinkedList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.recyclerView = findViewById(R.id.recyclerView);
+
+        initData();
+    }
+
+    private void initData() {
+        for (int i = 0; i < 10; i++) {
+            for (int z = 0; z < Datas.icons.length; z++) {
+                ItemEntity itemEntity = new ItemEntity();
+                itemEntity.icon = Datas.icons[z];
+                itemEntity.title = "我是第-" + (z+1)+"-条";
+                dataList.add(itemEntity);
+            }
+        }
+
+        // 设置样式
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // 绑定适配器
+        ListViewAdapter adapter = new ListViewAdapter(dataList);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
