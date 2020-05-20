@@ -13,26 +13,20 @@ import java.util.List;
 import lol.cicco.recyclerview.R;
 import lol.cicco.recyclerview.bean.ItemEntity;
 
-public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.InnerHolder> {
-
+public class GridViewAdapter extends RecyclerView.Adapter<GridViewAdapter.InnerHolder> {
     private List<ItemEntity> items;
-    public ListViewAdapter(List<ItemEntity> items){
+    public GridViewAdapter(List<ItemEntity> items){
         this.items = items;
     }
 
-    /**
-     * 用于创建条目View
-     */
+
     @NonNull
     @Override
     public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = View.inflate(parent.getContext(), R.layout.item_list_activity, null);
+        View view = View.inflate(parent.getContext(), R.layout.item_grid_activity, null);
         return new InnerHolder(view);
     }
 
-    /**
-     * 用于绑定Holder
-     */
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
         holder.setData(items.get(position));
@@ -43,15 +37,15 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.InnerH
         return items.size();
     }
 
-    // Holder实现类
     public class InnerHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;
 
         public InnerHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.listItemImageView);
-            textView = itemView.findViewById(R.id.listItemTextView);
+
+            imageView = itemView.findViewById(R.id.gridItemImageView);
+            textView = itemView.findViewById(R.id.gridItemTextView);
         }
 
         public void setData(ItemEntity itemEntity) {
@@ -59,5 +53,4 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewAdapter.InnerH
             textView.setText(itemEntity.title);
         }
     }
-
 }

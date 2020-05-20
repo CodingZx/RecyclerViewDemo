@@ -2,6 +2,7 @@ package lol.cicco.recyclerview;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,8 +14,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import lol.cicco.recyclerview.adapters.GridViewAdapter;
 import lol.cicco.recyclerview.adapters.ListViewAdapter;
 import lol.cicco.recyclerview.bean.ItemEntity;
+
+import static androidx.recyclerview.widget.RecyclerView.HORIZONTAL;
+import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         this.recyclerView = findViewById(R.id.recyclerView);
 
         initData();
+        showList(VERTICAL, false);
     }
 
     private void initData() {
@@ -41,14 +47,6 @@ public class MainActivity extends AppCompatActivity {
                 dataList.add(itemEntity);
             }
         }
-
-        // 设置样式
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        // 绑定适配器
-        ListViewAdapter adapter = new ListViewAdapter(dataList);
-        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -63,22 +61,30 @@ public class MainActivity extends AppCompatActivity {
         switch (itemId) {
             // ListView效果
             case R.id.listViewItemVerticalStander: // 垂直标准
+                showList(VERTICAL, false);
                 break;
             case R.id.listViewItemVerticalReverse: // 垂直反向
+                showList(VERTICAL, true);
                 break;
             case R.id.listViewItemHorizontalStander: // 水平标准
+                showList(HORIZONTAL, false);
                 break;
             case R.id.listViewItemHorizontalReverse: // 水平反向
+                showList(HORIZONTAL, true);
                 break;
 
             // GridView效果
             case R.id.gridViewItemVerticalStander: // 垂直标准
+                showGrid(VERTICAL, false);
                 break;
             case R.id.gridViewItemVerticalReverse:// 垂直反向
+                showGrid(VERTICAL, true);
                 break;
             case R.id.gridViewItemHorizontalStander:// 水平标准
+                showGrid(HORIZONTAL, false);
                 break;
             case R.id.gridViewItemHorizontalReverse:// 水平反向
+                showGrid(HORIZONTAL, true);
                 break;
 
             // 瀑布流效果
@@ -92,5 +98,27 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showGrid(int orientation, boolean reverseLayout) {
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+        layoutManager.setOrientation(orientation); // 垂直还是水平
+        layoutManager.setReverseLayout(reverseLayout); // 正向还是反向
+        recyclerView.setLayoutManager(layoutManager);
+        // 绑定适配器
+        GridViewAdapter adapter = new GridViewAdapter(dataList);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void showList(int orientation, boolean reverseLayout) {
+        // 设置样式
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(orientation); // 垂直还是水平
+        layoutManager.setReverseLayout(reverseLayout); // 正向还是反向
+        recyclerView.setLayoutManager(layoutManager);
+
+        // 绑定适配器
+        ListViewAdapter adapter = new ListViewAdapter(dataList);
+        recyclerView.setAdapter(adapter);
     }
 }
