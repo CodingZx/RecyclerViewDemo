@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,8 +27,14 @@ public abstract class BaseViewAdapter extends RecyclerView.Adapter<BaseViewAdapt
     }
 
     @Override
-    public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
+    public void onBindViewHolder(@NonNull InnerHolder holder, final int position) {
         holder.setData(items.get(position));
+        holder.parentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "点击了第-"+(position + 1)+"-个item", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -45,12 +52,14 @@ public abstract class BaseViewAdapter extends RecyclerView.Adapter<BaseViewAdapt
 
         private ImageView imageView;
         private TextView textView;
+        View parentView;
 
         InnerHolder(@NonNull View itemView, int imageViewId, int textViewId) {
             super(itemView);
 
             imageView = itemView.findViewById(imageViewId);
             textView = itemView.findViewById(textViewId);
+            this.parentView = itemView;
         }
 
         void setData(ItemEntity itemEntity) {

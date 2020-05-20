@@ -1,5 +1,9 @@
 package lol.cicco.recyclerview;
 
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -7,11 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -94,10 +93,13 @@ public class MainActivity extends AppCompatActivity {
                 showStagger(VERTICAL, false);
                 break;
             case R.id.staggerViewItemVerticalReverse:// 垂直反向
+                showStagger(VERTICAL, true);
                 break;
             case R.id.staggerViewItemHorizontalStander:// 水平标准
+                showStagger(HORIZONTAL, false);
                 break;
             case R.id.staggerViewItemHorizontalReverse:// 水平反向
+                showStagger(HORIZONTAL, true);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -110,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
 
         StaggerViewAdapter adapter = new StaggerViewAdapter(dataList);
         recyclerView.setAdapter(adapter);
-
     }
 
     private void showGrid(int orientation, boolean reverseLayout) {
@@ -134,4 +135,5 @@ public class MainActivity extends AppCompatActivity {
         ListViewAdapter adapter = new ListViewAdapter(dataList);
         recyclerView.setAdapter(adapter);
     }
+
 }
