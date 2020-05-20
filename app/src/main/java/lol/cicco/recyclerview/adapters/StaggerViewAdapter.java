@@ -8,25 +8,24 @@ import java.util.List;
 import lol.cicco.recyclerview.R;
 import lol.cicco.recyclerview.bean.ItemEntity;
 
-public class ListViewAdapter extends BaseViewAdapter {
+public class StaggerViewAdapter extends BaseViewAdapter {
 
-    public ListViewAdapter(List<ItemEntity> items){
+    public StaggerViewAdapter(List<ItemEntity> items) {
         super(items);
     }
 
     @Override
     protected View getLayoutView(ViewGroup viewGroup) {
-        return View.inflate(viewGroup.getContext(), R.layout.item_list_activity, null);
+        return View.inflate(viewGroup.getContext(), R.layout.item_stagger_activity, null);
     }
 
     @Override
     protected int getImageViewId() {
-        return R.id.listItemImageView;
+        return R.id.staggerItemImageView;
     }
 
     @Override
     protected int getTextViewId() {
-        return R.id.listItemTextView;
+        return R.id.staggerItemTextView;
     }
-
 }

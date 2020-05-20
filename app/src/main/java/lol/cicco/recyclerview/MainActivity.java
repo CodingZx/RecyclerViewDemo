@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import lol.cicco.recyclerview.adapters.GridViewAdapter;
 import lol.cicco.recyclerview.adapters.ListViewAdapter;
+import lol.cicco.recyclerview.adapters.StaggerViewAdapter;
 import lol.cicco.recyclerview.bean.ItemEntity;
 
 import static androidx.recyclerview.widget.RecyclerView.HORIZONTAL;
@@ -89,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
             // 瀑布流效果
             case R.id.staggerViewItemVerticalStander:// 垂直标准
+                showStagger(VERTICAL, false);
                 break;
             case R.id.staggerViewItemVerticalReverse:// 垂直反向
                 break;
@@ -98,6 +101,16 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showStagger(int orientation, boolean reverseLayout) {
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, orientation);
+        layoutManager.setReverseLayout(reverseLayout); // 正向还是反向
+        recyclerView.setLayoutManager(layoutManager);
+
+        StaggerViewAdapter adapter = new StaggerViewAdapter(dataList);
+        recyclerView.setAdapter(adapter);
+
     }
 
     private void showGrid(int orientation, boolean reverseLayout) {
