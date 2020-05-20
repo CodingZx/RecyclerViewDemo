@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="ListView效果" android:id="@+id/listViewItem">
+        <menu>
+            <item android:title="垂直标准" android:id="@+id/listViewItemVerticalStander"/>
+            <item android:title="垂直反向" android:id="@+id/listViewItemVerticalReverse"/>
+            <item android:title="水平标准" android:id="@+id/listViewItemHorizontalStander"/>
+            <item android:title="水平反向" android:id="@+id/listViewItemHorizontalReverse"/>
+        </menu>
+    </item>
+    <item android:title="GridView效果" android:id="@+id/gridViewItem">
+        <menu>
+            <item android:title="垂直标准" android:id="@+id/gridViewItemVerticalStander"/>
+            <item android:title="垂直反向" android:id="@+id/gridViewItemVerticalReverse"/>
+            <item android:title="水平标准" android:id="@+id/gridViewItemHorizontalStander"/>
+            <item android:title="水平反向" android:id="@+id/gridViewItemHorizontalReverse"/>
+        </menu>
+    </item>
+    <item android:title="瀑布流效果" android:id="@+id/staggerViewItem">
+        <menu>
+            <item android:title="垂直标准" android:id="@+id/staggerViewItemVerticalStander"/>
+            <item android:title="垂直反向" android:id="@+id/staggerViewItemVerticalReverse"/>
+            <item android:title="水平标准" android:id="@+id/staggerViewItemHorizontalStander"/>
+            <item android:title="水平反向" android:id="@+id/staggerViewItemHorizontalReverse"/>
+        </menu>
+    </item>
+</menu>
