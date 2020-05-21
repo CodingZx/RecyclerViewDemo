@@ -1,6 +1,8 @@
 package lol.cicco.recyclerview;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +28,7 @@ import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    RecyclerView.Adapter adapter;
 
     private List<ItemEntity> dataList = new LinkedList<>();
 
@@ -34,10 +38,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.recyclerView = findViewById(R.id.recyclerView);
+        final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.refreshLayout);
 
         initData();
         showList(VERTICAL, false);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // 下拉刷新
+                ItemEntity itemEntity = new ItemEntity();
+                itemEntity.title = "我是新添加的数据";
+                itemEntity.icon = R.mipmap.add;
+                dataList.add(0, itemEntity);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 1000);
+            }
+        });
+
     }
+
 
     private void initData() {
         for (int i = 0; i < 10; i++) {
@@ -101,8 +127,17 @@ public class MainActivity extends AppCompatActivity {
             case R.id.staggerViewItemHorizontalReverse:// 水平反向
                 showStagger(HORIZONTAL, true);
                 break;
+                
+            case R.id.allModuleView:
+                showAllModule();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showAllModule() {
+        Intent intent = new Intent(this, MoreItemActivity.class);
+        startActivity(intent);
     }
 
     private void showStagger(int orientation, boolean reverseLayout) {
@@ -110,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         layoutManager.setReverseLayout(reverseLayout); // 正向还是反向
         recyclerView.setLayoutManager(layoutManager);
 
-        StaggerViewAdapter adapter = new StaggerViewAdapter(dataList);
+        adapter = new StaggerViewAdapter(dataList);
         recyclerView.setAdapter(adapter);
     }
 
@@ -120,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         layoutManager.setReverseLayout(reverseLayout); // 正向还是反向
         recyclerView.setLayoutManager(layoutManager);
         // 绑定适配器
-        GridViewAdapter adapter = new GridViewAdapter(dataList);
+        adapter = new GridViewAdapter(dataList);
         recyclerView.setAdapter(adapter);
     }
 
@@ -132,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // 绑定适配器
-        ListViewAdapter adapter = new ListViewAdapter(dataList);
+        adapter = new ListViewAdapter(dataList);
         recyclerView.setAdapter(adapter);
     }
 

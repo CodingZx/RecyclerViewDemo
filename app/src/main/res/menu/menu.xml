@@ -25,4 +25,7 @@
             <item android:title="水平反向" android:id="@+id/staggerViewItemHorizontalReverse"/>
         </menu>
     </item>
+    <item android:title="混合模式" android:id="@+id/allModuleView">
+
+    </item>
 </menu>
