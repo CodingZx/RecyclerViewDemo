@@ -14,12 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.youth.banner.Banner;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import lol.cicco.recyclerview.adapters.GridViewAdapter;
 import lol.cicco.recyclerview.adapters.ListViewAdapter;
+import lol.cicco.recyclerview.adapters.MainBannerAdapter;
 import lol.cicco.recyclerview.adapters.StaggerViewAdapter;
+import lol.cicco.recyclerview.bean.BannerEntity;
 import lol.cicco.recyclerview.bean.ItemEntity;
 
 import static androidx.recyclerview.widget.RecyclerView.HORIZONTAL;
@@ -29,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
+    Banner<BannerEntity, MainBannerAdapter> banner;
 
     private List<ItemEntity> dataList = new LinkedList<>();
 
@@ -38,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.recyclerView = findViewById(R.id.recyclerView);
+        this.banner = findViewById(R.id.mainBanner);
         final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.refreshLayout);
-
         initData();
         showList(VERTICAL, false);
 
@@ -62,8 +68,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        List<BannerEntity> banners = new ArrayList<>();
+        banners.add(new BannerEntity(R.mipmap.banner1));
+        banners.add(new BannerEntity(R.mipmap.banner2));
+        banners.add(new BannerEntity(R.mipmap.banner3));
+
+        banner.setAdapter(new MainBannerAdapter(banners));
+        banner.start();
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        banner.stop();
+    }
 
     private void initData() {
         for (int i = 0; i < 10; i++) {
